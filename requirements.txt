@@ -1,0 +1,2 @@
+django-markdownify==0.3.0
+django-crispy-forms==1.7.0
