@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DeleteView, CreateView, DetailView
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404
 from .models import MailingList, Subscriber, Message
 from .mixins import UserCanUseMailingList
 from .forms import MailingListForm, SubscriberForm, MessageForm
@@ -98,9 +99,10 @@ class CreateMessageView(LoginRequiredMixin, CreateView):
     SAVE_ACTION = 'save'
     PREVIEW_ACTION = 'preview'
 
+    model = Message
     form_class = MessageForm
     template_name = 'message_form.html'
-
+    
     def get_success_url(self):
         return reverse(
             'mailinglist:manage_mailinglist',
@@ -130,17 +132,19 @@ class CreateMessageView(LoginRequiredMixin, CreateView):
         if action == self.PREVIEW_ACTION:
             context = self.get_context_data(
                 form=form,
-                message=form.isinstance
+                message=form.instance
             )
-            return self.render_to_response(context = context)
+            return self.render_to_response(context=context)
         elif action == self.SAVE_ACTION:
             return super().form_valid(form)
 
     def get_mailing_list(self):
-        mailing_list = get_object_or_404(MailingList, id=self.kwargs['mailinlist_pk'])
+        mailing_list = get_object_or_404(MailingList, id=self.kwargs['mailinglist_ipk'])
         if not mailing_list.user_can_use_mailing_list(self.request.user):
             raise PermissionDenied()
         return mailing_list
+
+
 
 
 class MessageDetailView(LoginRequiredMixin, UserCanUseMailingList, DetailView):

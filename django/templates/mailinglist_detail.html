@@ -4,15 +4,13 @@
 <h1>{{mailinglist.name}} Management <a href="{% url 'mailinglist:delete_mailinglist' pk=mailinglist.id %}"
         class="btn btn-danger">Delete</a></h1>
 <div>
-    <a href="{% url 'mailinglist:subscribe' mailinglist_pk=mailinglist.id%}">
+    <a href="{% url 'mailinglist:manage_mailinglist' pk=mailinglist.id%}">
         Subscription Link
     </a>
 </div>
 <h2>Message</h2>
 <div>
-    Send New
-    <a class="btn btn-primaty" href="{% url 'mailinglist:create_message' mailinglist_pk=mailinglist.id %}">Send new
-        Message</a>
+    <a class="btn btn-primaty" href="{% url 'mailinglist:create_message' mailinglist_ipk=mailinglist.id %}">Send new Message</a>
 </div>
 <ul>
     {% for message in mailinglist.massage_set.all %}
