@@ -138,3 +138,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'user:login'
 LOGIN_REDIRECT_URL = 'mailinglist:mailinglist_list'
 LOGOUT_REDIRECT_URL = 'user:login'
+
+
+EMAIL_HOST = 'smtp.example.com'

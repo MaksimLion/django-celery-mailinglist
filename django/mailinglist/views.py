@@ -54,7 +54,6 @@ class SubscribeToMailingListView(CreateView):
             }
         )
 
-
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         mailing_list_id = self.kwargs['mailinglist_id']
@@ -90,7 +89,7 @@ class UnsubscribeView(DeleteView):
         return reverse(
             'mailinglist:subscribe',
             kwargs={
-                'mailinglist_pk': mailing_list.id
+                'mailinglist_id': mailing_list.id
             }
         )
 
@@ -106,7 +105,7 @@ class CreateMessageView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse(
             'mailinglist:manage_mailinglist',
-            kwargs={
+            kwargs= {
                 'pk': self.object.mailing_list.id
             }
         )
@@ -146,6 +145,6 @@ class CreateMessageView(LoginRequiredMixin, CreateView):
 
 
 
-
 class MessageDetailView(LoginRequiredMixin, UserCanUseMailingList, DetailView):
     model = Message
+    template_name = 'message_detail.html'
