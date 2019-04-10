@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'markdownify',
+    'django_celery_results',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CELERY_BROKER_URL = 'redis://localgost:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

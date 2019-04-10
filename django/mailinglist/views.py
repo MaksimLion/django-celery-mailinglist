@@ -144,7 +144,6 @@ class CreateMessageView(LoginRequiredMixin, CreateView):
         return mailing_list
 
 
-
 class MessageDetailView(LoginRequiredMixin, UserCanUseMailingList, DetailView):
     model = Message
     template_name = 'message_detail.html'
